@@ -47,3 +47,44 @@ class PricingPageTests(TestCase):
         self.assertContains(response, 'Starter')
         self.assertContains(response, 'Standard')
         self.assertContains(response, 'Enterprise')
+
+    def test_pricing_shows_included_services_and_request_quote_link(self):
+        response = self.client.get(reverse('pricing'))
+        # check that an included service label appears on the page
+        self.assertContains(response, 'Helpdesk &amp; Support')
+        self.assertContains(response, 'RMM &amp; Patching')
+        # request-quote CTA should include services query parameter
+        self.assertContains(response, '?plan=starter')
+        self.assertContains(response, '&services=')
+
+
+class ContactPrefillTests(TestCase):
+    def test_contact_prefill_from_pricing_query(self):
+        url = reverse('contact') + '?plan=standard&services=backup,security'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        # the selected plan should be displayed and the services mapped to human labels
+        self.assertContains(response, 'Selected plan:')
+        self.assertContains(response, 'standard')
+        self.assertContains(response, 'Backup &amp; Disaster Recovery')
+        self.assertContains(response, 'Managed Security')
+
+    def test_contact_post_includes_plan_and_services_in_email(self):
+        data = {
+            "name": "Carol",
+            "company": "Acme",
+            "email": "carol@acme.test",
+            "phone": "555-0300",
+            "message": "Please quote",
+            "plan": "standard",
+            "selected_services": "Backup & Disaster Recovery, Managed Security",
+        }
+
+        with self.settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+                           CONTACT_RECIPIENT_EMAIL="recipient@example.com"):
+            response = self.client.post(reverse('contact'), data)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(len(mail.outbox), 1)
+            body = mail.outbox[0].body
+            self.assertIn('Plan: standard', body)
+            self.assertIn('Selected services: Backup & Disaster Recovery, Managed Security', body)

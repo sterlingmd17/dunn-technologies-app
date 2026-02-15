@@ -22,7 +22,7 @@
     <div class="row g-4">
       {% for tier in tiers %}
       <div class="col-md-4">
-        <div class="p-4 bg-white border pricing-card {% if tier.highlight %}best{% endif %}">
+        <div class="p-4 bg-white border pricing-card {% if tier.highlight %}best{% endif %}" data-tier="{{ tier.id }}">
           <div class="d-flex justify-content-between align-items-center mb-3">
             <div class="fw-semibold">{{ tier.name }}</div>
             {% if tier.highlight %}<div class="badge bg-success text-white">Popular</div>{% endif %}
@@ -39,8 +39,22 @@
             {% endfor %}
           </ul>
 
-          <div class="d-grid">
-            <a href="{% url 'contact' %}?plan={{ tier.id }}" class="btn btn-outline-success">Contact Sales</a>
+          {% if tier.included_services %}
+          <div class="mb-3">
+            <div class="small text-muted mb-2">Included services:</div>
+            <div class="service-toggles" data-services="{{ tier.services_param }}">
+              {% for s in tier.included_services %}
+              <div class="form-check form-check-inline">
+                <input class="form-check-input service-toggle" type="checkbox" id="svc_{{ tier.id }}_{{ forloop.counter }}" value="{{ s }}" checked>
+                <label class="form-check-label small" for="svc_{{ tier.id }}_{{ forloop.counter }}">{{ s }}</label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="d-grid mt-4">
+            <a href="{% url 'contact' %}?plan={{ tier.id }}&services={{ tier.services_param }}" class="btn btn-outline-success request-quote-link" data-tier="{{ tier.id }}">Request quote</a>
           </div>
         </div>
       </div>
@@ -52,6 +66,7 @@
 {% block extra_scripts %}
 <script>
   document.addEventListener('DOMContentLoaded', function(){
+    // Monthly/annual toggle
     var toggle = document.getElementById('billingToggle');
     var updatePrices = function(){
       var annual = toggle.checked;
@@ -63,6 +78,41 @@
       });
     };
     toggle.addEventListener('change', updatePrices);
+
+    // Service toggling
+    var updateRequestQuoteLink = function(card) {
+      var tierId = card.dataset.tier;
+      var toggles = card.querySelectorAll('.service-toggle:checked');
+      var selectedServices = Array.from(toggles).map(function(t) {
+        // Extract service slug from label (e.g., "Helpdesk & Support" -> "helpdesk")
+        var text = t.parentElement.textContent.trim();
+        var slugMap = {
+          'Helpdesk & Support': 'helpdesk',
+          'RMM & Patching': 'rmm',
+          'Email & Collaboration': 'email',
+          'Backup & Disaster Recovery': 'backup',
+          'Managed Security': 'security',
+          'Networking & VoIP': 'networking',
+          'Cloud & Migration': 'cloud',
+          'VoIP & UC': 'voip'
+        };
+        return slugMap[text] || text.toLowerCase().replace(/\s+/g, '-');
+      }).join(',');
+
+      var link = card.querySelector('.request-quote-link');
+      var params = new URLSearchParams();
+      params.set('plan', tierId);
+      params.set('services', selectedServices);
+      link.href = link.href.split('?')[0] + '?' + params.toString();
+    };
+
+    // Attach listeners to service toggles
+    document.querySelectorAll('.service-toggle').forEach(function(toggle){
+      toggle.addEventListener('change', function(){
+        var card = this.closest('.pricing-card');
+        updateRequestQuoteLink(card);
+      });
+    });
   });
 </script>
 {% endblock %}
