@@ -1,24 +1,25 @@
 
 :root {
-  --dt-primary: #1B5E3C;
+  --dt-green: #1B5E3C;
   --dt-accent: #2E8B57;
+  --dt-green-dark: #15442f;
   --dt-light-bg: #F4F8F6;
   --dt-text: #1F2933;
   --dt-muted: #6B7280;
 }
 
-
 .btn-success {
-  background-color: var(--dt-green) !important;
-  border-color: var(--dt-green) !important;
+  background-color: var(--dt-accent);
+  border-color: var(--dt-accent);
+  color: #fff;
 }
 .btn-success:hover {
-  background-color: var(--dt-green-dark) !important;
-  border-color: var(--dt-green-dark) !important;
+  background-color: var(--dt-green-dark);
+  border-color: var(--dt-green-dark);
 }
 
 .hero {
-  background: linear-gradient(180deg, rgba(31,122,58,0.10), rgba(31,122,58,0.02));
+  background: linear-gradient(180deg, rgba(31,122,58,0.08), rgba(31,122,58,0.02));
 }
 
 .icon-pill {
@@ -28,6 +29,27 @@
   align-items: center;
   justify-content: center;
   background: rgba(31,122,58,0.12);
-  color: var(--dt-green);
+  color: var(--dt-accent);
   font-weight: 700;
+}
+
+.service-icon {
+  font-size: 1.35rem;
+  color: var(--dt-accent);
+  vertical-align: -2px;
+}
+
+.hero-image {
+  max-width: 100%;
+  border-radius: 0.75rem;
+  object-fit: cover;
+  height: 220px;
+}
+
+.service-card {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(15,23,42,0.08);
 }
