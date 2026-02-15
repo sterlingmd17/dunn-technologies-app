@@ -1,0 +1,69 @@
+{% extends "website/base.html" %}
+{% block title %}Pricing | Dunn Technologies{% endblock %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <div class="row mb-4 align-items-center">
+      <div class="col-md-8">
+        <h1 class="fw-bold">Pricing</h1>
+        <p class="text-muted">Simple, predictable pricing for managed IT. Choose monthly billing or save with annual plans.</p>
+      </div>
+      <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <div class="pricing-toggle d-inline-flex align-items-center">
+          <span class="me-2 small text-muted">Monthly</span>
+          <div class="form-check form-switch d-inline-block">
+            <input class="form-check-input" type="checkbox" id="billingToggle" aria-label="Toggle annual billing">
+          </div>
+          <span class="ms-2 small text-muted">Annual</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      {% for tier in tiers %}
+      <div class="col-md-4">
+        <div class="p-4 bg-white border pricing-card {% if tier.highlight %}best{% endif %}">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="fw-semibold">{{ tier.name }}</div>
+            {% if tier.highlight %}<div class="badge bg-success text-white">Popular</div>{% endif %}
+          </div>
+
+          <div class="mb-3">
+            <div class="price" data-month="{{ tier.price_month }}" data-year="{{ tier.price_year }}">${{ tier.price_month }}</div>
+            <div class="period">per month</div>
+          </div>
+
+          <ul class="pricing-features text-muted mb-3">
+            {% for f in tier.features %}
+            <li>{{ f }}</li>
+            {% endfor %}
+          </ul>
+
+          <div class="d-grid">
+            <a href="{% url 'contact' %}?plan={{ tier.id }}" class="btn btn-outline-success">Contact Sales</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function(){
+    var toggle = document.getElementById('billingToggle');
+    var updatePrices = function(){
+      var annual = toggle.checked;
+      document.querySelectorAll('.price').forEach(function(el){
+        var m = parseInt(el.dataset.month,10);
+        var y = parseInt(el.dataset.year,10);
+        el.textContent = '$' + (annual ? y : m);
+        el.nextElementSibling.textContent = annual ? 'per year' : 'per month';
+      });
+    };
+    toggle.addEventListener('change', updatePrices);
+  });
+</script>
+{% endblock %}
+{% endblock %}

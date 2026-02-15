@@ -38,3 +38,12 @@ class ContactViewTests(TestCase):
             self.assertEqual(len(mail.outbox), 1)
             self.assertEqual(mail.outbox[0].to, ["recipient@example.com"])
             self.assertIn("New Lead", mail.outbox[0].subject)
+
+
+class PricingPageTests(TestCase):
+    def test_pricing_page_renders_and_contains_tiers(self):
+        response = self.client.get(reverse('pricing'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Starter')
+        self.assertContains(response, 'Standard')
+        self.assertContains(response, 'Enterprise')

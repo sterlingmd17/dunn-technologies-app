@@ -71,4 +71,14 @@
 
 @media (max-width: 576px) {
   #service-map { height: 260px; }
-} 
+}
+
+/* Pricing */
+.pricing-toggle { display:flex; gap:.5rem; align-items:center; }
+.pricing-card { border-radius: .75rem; transition: transform .18s ease, box-shadow .18s ease; }
+.pricing-card.best { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(2,6,23,0.12); border: 1px solid rgba(31,122,58,0.08); }
+.pricing-card .price { font-size: 2rem; font-weight:700; color:var(--dt-text); }
+.pricing-card .period { color:var(--dt-muted); font-size:.9rem; }
+.pricing-features { list-style: none; padding-left:0; margin-bottom:1rem; }
+.pricing-features li::before { content: "\f00c"; font-family: 'Bootstrap Icons'; margin-right:.6rem; color:var(--dt-accent); font-weight:700; }
+ 
