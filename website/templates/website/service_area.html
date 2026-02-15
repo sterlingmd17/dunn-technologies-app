@@ -1,8 +1,6 @@
 {% extends "website/base.html" %}
 {% block title %}Service Area | Dunn Technologies{% endblock %}
-{% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-{% endblock %}
+
 {% block content %}
 <section class="py-5">
   <div class="container">
@@ -34,32 +32,9 @@
     </div>
   </div>
 </section>
-{% block extra_scripts %}
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var map = L.map('service-map', { scrollWheelZoom: true }).setView([47.5, -121.0], 6);
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  var vancouverCenter = [49.2827, -123.1207];
-  var portlandCenter = [45.5152, -122.6784];
-
-  // coverage circles
-  var vanCircle = L.circle(vancouverCenter, { radius: 50000, color:'#1B5E3C', fillColor:'#1B5E3C', fillOpacity:0.12 }).addTo(map).bindPopup('Greater Vancouver — ~50 km radius');
-  var pdxCircle = L.circle(portlandCenter, { radius: 40000, color:'#2E8B57', fillColor:'#2E8B57', fillOpacity:0.12 }).addTo(map).bindPopup('Portland Metro — ~40 km radius');
-
-  // city markers (helpful when tiles or circles are subtle)
-  L.marker(vancouverCenter).addTo(map).bindPopup('Greater Vancouver (approx center)');
-  L.marker(portlandCenter).addTo(map).bindPopup('Portland metro (approx center)');
-
-  var group = L.featureGroup([vanCircle, pdxCircle]);
-  map.fitBounds(group.getBounds().pad(0.35));
-
-  L.control.scale().addTo(map);
-});
-</script>
-{% endblock %}
+<div class="ratio" style="--bs-aspect-ratio: 60%;">
+  <iframe
+    src="https://maps.google.com/maps?q=47.4,-122.9&z=6&output=embed"
+    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</div>
 {% endblock %} 
