@@ -1,0 +1,56 @@
+{% extends "website/base.html" %}
+{% block title %}Services | Dunn Technologies{% endblock %}
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h1 class="fw-bold mb-3">Services</h1>
+    <p class="text-muted mb-4">
+      Managed IT support and systems management for businesses of all sizes — focused on reliability, security, and cost efficiency.
+    </p>
+
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="p-4 border rounded-4 h-100">
+          <h2 class="h5 fw-bold">Networking</h2>
+          <ul class="text-muted">
+            <li>Network design and upgrades</li>
+            <li>VLANs, firewall policy, VPN</li>
+            <li>Wi-Fi deployment and tuning</li>
+            <li>Monitoring + alerting</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="p-4 border rounded-4 h-100">
+          <h2 class="h5 fw-bold">Email</h2>
+          <ul class="text-muted">
+            <li>Migrations and tenant cleanup</li>
+            <li>MFA + conditional access baselines</li>
+            <li>SPF/DKIM/DMARC alignment</li>
+            <li>Anti-phishing improvements</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="p-4 border rounded-4 h-100">
+          <h2 class="h5 fw-bold">VoIP</h2>
+          <ul class="text-muted">
+            <li>QoS and call quality remediation</li>
+            <li>SIP trunk/provider coordination</li>
+            <li>Network readiness assessments</li>
+            <li>Ongoing support</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 p-4 border rounded-4 bg-white">
+      <h3 class="h5 fw-bold mb-2">How we reduce cost without cutting corners</h3>
+      <p class="text-muted mb-0">
+        We use proven open-source solutions where they’re a net win (stability, transparency, supportability),
+        and pair them with widely adopted modern platforms when that improves security, interoperability, or time-to-value.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
