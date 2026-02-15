@@ -57,9 +57,10 @@
 /* Service-area map */
 #service-map {
   width: 100%;
-  height: 420px;
+  height: min(80vh, 900px);
   border-radius: 0.75rem;
   box-shadow: 0 6px 20px rgba(2,6,23,0.06);
+  position: relative;
 }
 
 .map-legend {
