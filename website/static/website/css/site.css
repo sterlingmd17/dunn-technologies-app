@@ -43,8 +43,16 @@
   max-width: 100%;
   border-radius: 0.75rem;
   object-fit: cover;
-  height: 220px;
+  height: min(60vh, 640px); /* much larger hero on wide screens */
 }
+
+@media (max-width: 1199px) {
+  .hero-image { height: min(45vh, 440px); }
+}
+
+@media (max-width: 991px) {
+  .hero-image { height: 260px; }
+} 
 
 .service-card {
   transition: transform .18s ease, box-shadow .18s ease;
@@ -71,4 +79,17 @@
 
 @media (max-width: 576px) {
   #service-map { height: 260px; }
-} 
+}
+
+/* Navbar logo sizing */
+.navbar-brand img {
+  height: 150px; /* desktop */
+  max-height: 150px;
+  width: auto;
+  display: inline-block;
+  object-fit: contain;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand img { height: 96px; max-height: 96px; }
+}

@@ -21,9 +21,11 @@
       </div>
 
       <div class="col-lg-5">
-        <img src="/static/website/img/hero.svg"
-             onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=60';"
-             alt="IT team at work" class="hero-image mb-3 d-none d-lg-block">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2400&q=80"
+             srcset="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=60 900w, https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80 1400w, https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2400&q=80 2400w"
+             sizes="(min-width: 992px) 40vw, 100vw"
+             onerror="this.onerror=null;this.src='/static/website/img/hero.svg';"
+             alt="IT professionals collaborating" loading="lazy" class="hero-image mb-3 d-none d-lg-block">
         <div class="p-4 bg-white border rounded-4 shadow-sm">
           <div class="d-flex gap-3 mb-3">
             <div class="icon-pill"><i class="bi bi-wifi" aria-hidden="true"></i></div>

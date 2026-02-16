@@ -72,3 +72,10 @@
 @media (max-width: 576px) {
   #service-map { height: 260px; }
 } 
+/* Navbar logo sizing */
+.navbar-brand img {
+  height: 36px;
+  width: auto;
+  display: inline-block;
+  object-fit: contain;
+}
