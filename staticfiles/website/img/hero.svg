@@ -9,7 +9,7 @@
   <g transform="translate(80,160)">
     <rect x="0" y="0" width="720" height="440" rx="20" fill="#fff" stroke="#e6efe9"/>
     <text x="40" y="80" fill="#15442f" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="700">Dunn Technologies</text>
-    <text x="40" y="130" fill="#3b6b54" font-family="Helvetica, Arial, sans-serif" font-size="20">Managed IT • Networking • Email • VoIP</text>
+    <text x="40" y="130" fill="#3b6b54" font-family="Helvetica, Arial, sans-serif" font-size="20">Managed IT • Security • Backup • Support</text>
     <g transform="translate(40,180)" fill="#2E8B57" opacity="0.12">
       <circle cx="80" cy="80" r="72" />
     </g>

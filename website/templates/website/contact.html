@@ -1,14 +1,19 @@
 {% extends "website/base.html" %}
 {% block title %}Contact | Dunn Technologies{% endblock %}
+{% block meta_description %}Request a managed IT consultation with Dunn Technologies for support, security, backup, and infrastructure services in Greater Vancouver and Portland.{% endblock %}
 {% block content %}
-<section class="py-5">
+<section class="py-5 contact-section bg-light">
   <div class="container">
-    <h1 class="fw-bold mb-3">Contact</h1>
-    <p class="text-muted">Tell us what you need and we’ll follow up.</p>
+    <div class="text-center mb-4 mb-lg-5">
+      <h1 class="display-6 fw-bold mb-2">Request a Consultation</h1>
+      <p class="text-muted contact-intro mb-0">Share your needs and we’ll follow up with clear, practical next steps.</p>
+    </div>
 
     <div class="row g-4">
       <div class="col-lg-7">
-        <form method="post" class="p-4 border rounded-4 bg-white">
+        <form method="post" class="p-4 p-lg-5 border rounded-4 bg-white contact-form-wrap">
+          <h2 class="h5 fw-bold mb-3">Tell Us About Your IT Needs</h2>
+          <p class="text-muted small mb-4">We typically respond within one business day.</p>
           {% csrf_token %}
           <div class="row g-3">
             <div class="col-md-6">
@@ -44,20 +49,20 @@
 
           {{ form.plan }}{{ form.selected_services }}
 
-          <button class="btn btn-success mt-3" type="submit">Send</button>
+          <button class="btn btn-success mt-3 px-4" type="submit">Send Message</button>
         </form>
       </div>
 
       <div class="col-lg-5">
-        <div class="p-4 border rounded-4 h-100">
-          <h2 class="h6 fw-bold">What to include</h2>
-          <ul class="text-muted">
+        <div class="p-4 p-lg-5 border rounded-4 h-100 bg-white contact-sidebar">
+          <h2 class="h6 fw-bold mb-3">Helpful details to include</h2>
+          <ul class="text-muted mb-4">
             <li>Number of users/devices</li>
             <li>Any outages / urgency</li>
-            <li>Networking/email/VoIP focus</li>
+            <li>Main area of need (support, security, backup, infrastructure, etc.)</li>
             <li>Onsite vs remote preference</li>
           </ul>
-          <div class="small text-muted">
+          <div class="small text-muted border-top pt-3">
             Service area: Greater Vancouver / Portland metro.
           </div>
         </div>

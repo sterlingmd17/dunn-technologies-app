@@ -1,19 +1,24 @@
+import logging
+from smtplib import SMTPException
+
 from django.shortcuts import render
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from .forms import ContactForm
+
+
+logger = logging.getLogger(__name__)
 
 # Service slug -> human label mapping used for pricing and contact prefill
 SERVICE_LABELS = {
-    'networking': 'Networking & VoIP',
-    'email': 'Email & Collaboration',
-    'voip': 'VoIP & UC',
+    'helpdesk': 'Helpdesk & Support',
     'security': 'Managed Security',
     'backup': 'Backup & Disaster Recovery',
-    'cloud': 'Cloud & Migration',
-    'rmm': 'RMM & Patching',
-    'helpdesk': 'Helpdesk & Support',
+    'networking': 'Networking & Infrastructure',
+    'cloud': 'Cloud Services',
+    'voip': 'VoIP & UC',
+    'servers': 'Servers & On-prem',
 }
 
 
@@ -34,37 +39,23 @@ def about(request):
 
 
 def pricing(request):
-    # sample tiers — adjust content/prices as you like
+    # per-user pricing: all services included, cancel anytime
     tiers = [
         {
-            "id": "starter",
-            "name": "Starter",
-            "price_month": 199,
-            "price_year": 1890,
-            "features": ["Remote support (business hours)", "Monthly patching", "Email helpdesk"],
-            "included_services": [SERVICE_LABELS['helpdesk'], SERVICE_LABELS['rmm'], SERVICE_LABELS['email']],
-            "services_param": "helpdesk,rmm,email",
-            "highlight": False,
-        },
-        {
-            "id": "standard",
-            "name": "Standard",
-            "price_month": 499,
-            "price_year": 4790,
-            "features": ["24/7 monitoring", "Quarterly onsite visit", "VoIP & network support"],
-            "included_services": [SERVICE_LABELS['helpdesk'], SERVICE_LABELS['rmm'], SERVICE_LABELS['email'], SERVICE_LABELS['backup'], SERVICE_LABELS['security'], SERVICE_LABELS['networking']],
-            "services_param": "helpdesk,rmm,email,backup,security,networking",
+            "id": "per_user",
+            "price_month": 150,
+            "features": [
+                "All services included",
+                "No contract – cancel anytime",
+                "24/7 helpdesk (remote & onsite)",
+                "Security monitoring & incident response",
+                "Automated patching & configuration control",
+                "Backup, replication & DR planning",
+                "Network, cloud & infrastructure maintenance",
+                "User onboarding/offboarding and asset tracking",
+                "Cost-conscious open-source architecture",
+            ],
             "highlight": True,
-        },
-        {
-            "id": "enterprise",
-            "name": "Enterprise",
-            "price_month": 1299,
-            "price_year": 12490,
-            "features": ["Dedicated engineer", "SLA & priority response", "Multi-site support"],
-            "included_services": [SERVICE_LABELS['helpdesk'], SERVICE_LABELS['rmm'], SERVICE_LABELS['email'], SERVICE_LABELS['backup'], SERVICE_LABELS['security'], SERVICE_LABELS['networking'], SERVICE_LABELS['cloud']],
-            "services_param": "helpdesk,rmm,email,backup,security,networking,cloud",
-            "highlight": False,
         },
     ]
     return render(request, "website/pricing.html", {"tiers": tiers})
@@ -80,7 +71,8 @@ def contact(request):
         if form.is_valid():
             data = form.cleaned_data
 
-            subject = f"New Lead - {data['company'] or data['name']}"
+            subject_prefix = getattr(settings, "CONTACT_EMAIL_SUBJECT_PREFIX", "[Website Lead]")
+            subject = f"{subject_prefix} {data['company'] or data['name']}"
             message = (
                 f"Name: {data['name']}\n"
                 f"Company: {data['company']}\n"
@@ -93,13 +85,30 @@ def contact(request):
 
             recipient = getattr(settings, "CONTACT_RECIPIENT_EMAIL", "your_email@dunntech.com")
 
-            send_mail(
-                subject,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [recipient],
-                fail_silently=False,
+            if not recipient or recipient == "your_email@dunntech.com":
+                messages.error(
+                    request,
+                    "Contact email is not configured yet. Set CONTACT_RECIPIENT_EMAIL in your environment.",
+                )
+                return render(request, "website/contact.html", {"form": form})
+
+            email = EmailMessage(
+                subject=subject,
+                body=message,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[recipient],
+                reply_to=[data["email"]],
             )
+
+            try:
+                email.send(fail_silently=False)
+            except (SMTPException, OSError, ValueError) as exc:
+                logger.exception("Contact form email failed: %s", exc)
+                messages.error(
+                    request,
+                    "Your message could not be sent right now. Please verify email settings and try again.",
+                )
+                return render(request, "website/contact.html", {"form": form})
 
             messages.success(request, "Your message has been sent.")
             form = ContactForm()

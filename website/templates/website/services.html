@@ -1,130 +1,112 @@
 {% extends "website/base.html" %}
 {% block title %}Services | Dunn Technologies{% endblock %}
+{% block meta_description %}Explore managed IT services from Dunn Technologies, including networking, VoIP, cloud software, servers, security, backups, and helpdesk support.{% endblock %}
 {% block content %}
-<section class="py-5">
-  <div class="container">
-    <h1 class="fw-bold mb-3">Services</h1>
-    <p class="text-muted mb-4">
-      Managed IT support and systems management for businesses of all sizes — focused on reliability, security, and cost efficiency.
-    </p>
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+      <h1 class="display-5 fw-bold mb-3">Managed Services</h1>
+      <p class="lead text-muted mb-4">Practical, proactive IT services to keep your business secure, stable, and supported.</p>
+    </div>
+  </section>
 
-    <div class="row g-4">
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-wifi service-icon me-2" aria-hidden="true"></i>Networking</h2>
-          <ul class="text-muted">
-            <li>Network design and upgrades</li>
-            <li>VLANs, firewall policy, VPN</li>
-            <li>Wi‑Fi deployment and site surveys</li>
-            <li>Monitoring, logging & alerting</li>
-          </ul>
+  <section class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-wifi text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Networking</h3>
+              <p class="text-muted small mb-0">LAN/WAN design, firewall & VPN, Wi‑Fi deployments, and performance tuning.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-telephone-fill text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">VoIP & UC</h3>
+              <p class="text-muted small mb-0">SIP/provider coordination, QoS tuning, handset provisioning and troubleshooting.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-cloud text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Cloud Software</h3>
+              <p class="text-muted small mb-0">Migrations, tenant governance, identity, and platform management (M365, Azure, AWS).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-hdd-stack text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Servers & On‑prem</h3>
+              <p class="text-muted small mb-0">Physical and virtual server management, virtualization, storage and lifecycle planning.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-shield-lock-fill text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Security</h3>
+              <p class="text-muted small mb-0">Endpoint protection, vulnerability management, monitoring, and incident response.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-cloud-arrow-up text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Backups & DR</h3>
+              <p class="text-muted small mb-0">Automated backups, off‑site replication, restore testing and disaster recovery planning.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-headset text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Helpdesk Support</h3>
+              <p class="text-muted small mb-0">Tiered helpdesk (remote & onsite), onboarding/offboarding and SLA support.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-envelope-fill text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Email & Collaboration</h3>
+              <p class="text-muted small mb-0">Migrations, security hardening, deliverability, and policy enforcement.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <i class="bi bi-graph-up text-success" style="font-size: 2rem;"></i>
+              <h3 class="h6 fw-bold mt-3">Monitoring & Alerting</h3>
+              <p class="text-muted small mb-0">Proactive system monitoring, logging, alerting, and performance optimization.</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-envelope-fill service-icon me-2" aria-hidden="true"></i>Email & Collaboration</h2>
-          <ul class="text-muted">
-            <li>Migrations and tenant cleanup</li>
-            <li>MFA & conditional access baselines</li>
-            <li>Deliverability (SPF/DKIM/DMARC)</li>
-            <li>Anti‑phishing & policy enforcement</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-telephone-fill service-icon me-2" aria-hidden="true"></i>VoIP & UC</h2>
-          <ul class="text-muted">
-            <li>Call quality remediation & QoS</li>
-            <li>SIP trunk/provider coordination</li>
-            <li>Handset & network readiness</li>
-            <li>Ongoing managed support</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-shield-lock-fill service-icon me-2" aria-hidden="true"></i>Managed Security</h2>
-          <ul class="text-muted">
-            <li>Endpoint protection & EDR</li>
-            <li>Vulnerability scanning & remediation</li>
-            <li>Security monitoring & incident support</li>
-            <li>Phishing simulations & awareness</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-cloud-arrow-up service-icon me-2" aria-hidden="true"></i>Backup & Disaster Recovery</h2>
-          <ul class="text-muted">
-            <li>Image & file backups (cloud/on‑prem)</li>
-            <li>Replication and failover planning</li>
-            <li>Regular restore testing</li>
-            <li>Business continuity planning</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-cloud-upload service-icon me-2" aria-hidden="true"></i>Cloud & Migration Services</h2>
-          <ul class="text-muted">
-            <li>M365, Azure, AWS migrations</li>
-            <li>Cloud cost optimization</li>
-            <li>Hybrid architecture & identity</li>
-            <li>Platform consolidation</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-gear-fill service-icon me-2" aria-hidden="true"></i>RMM & Patching</h2>
-          <ul class="text-muted">
-            <li>Automated patch management</li>
-            <li>Remote monitoring & alerts</li>
-            <li>Configuration management</li>
-            <li>Inventory & lifecycle tracking</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-headset service-icon me-2" aria-hidden="true"></i>Helpdesk & Support</h2>
-          <ul class="text-muted">
-            <li>Tiered helpdesk (remote/onsite)</li>
-            <li>SLA options & escalation</li>
-            <li>Ticketing and knowledge base</li>
-            <li>Onboarding & offboarding</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-6 col-lg-4">
-        <div class="p-4 border rounded-4 h-100 service-card">
-          <h2 class="h5 fw-bold"><i class="bi bi-diagram-3 service-icon me-2" aria-hidden="true"></i>IT Asset Management</h2>
-          <ul class="text-muted">
-            <li>Hardware inventory & tracking</li>
-            <li>Lifecycle planning & depreciation</li>
-            <li>Procurement coordination</li>
-            <li>Disposal & compliance reporting</li>
-          </ul>
-        </div>
+      <div class="mt-5 text-center">
+        <a href="{% url 'contact' %}" class="btn btn-outline-success btn-lg">Request a Consultation</a>
       </div>
     </div>
+  </section>
 
-    <div class="mt-5 p-4 border rounded-4 bg-white">
-      <h3 class="h5 fw-bold mb-2">How we reduce cost without cutting corners</h3>
-      <p class="text-muted mb-0">
-        We use proven open-source solutions where they’re a net win (stability, transparency, supportability),
-        and pair them with widely adopted modern platforms when that improves security, interoperability, or time-to-value.
-      </p>
-    </div>
-  </div>
-</section>
 {% endblock %}

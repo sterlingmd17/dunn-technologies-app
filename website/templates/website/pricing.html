@@ -1,60 +1,40 @@
 {% extends "website/base.html" %}
 {% block title %}Pricing | Dunn Technologies{% endblock %}
+{% block meta_description %}Simple all-inclusive managed IT pricing: $150 per user per month with no contract, cancel anytime, for businesses in Greater Vancouver and Portland.{% endblock %}
 {% block content %}
-<section class="py-5">
+<section class="py-5 bg-light">
   <div class="container">
-    <div class="row mb-4 align-items-center">
-      <div class="col-md-8">
-        <h1 class="fw-bold">Pricing</h1>
-        <p class="text-muted">Simple, predictable pricing for managed IT. Choose monthly billing or save with annual plans.</p>
-      </div>
-      <div class="col-md-4 text-md-end mt-3 mt-md-0">
-        <div class="pricing-toggle d-inline-flex align-items-center">
-          <span class="me-2 small text-muted">Monthly</span>
-          <div class="form-check form-switch d-inline-block">
-            <input class="form-check-input" type="checkbox" id="billingToggle" aria-label="Toggle annual billing">
-          </div>
-          <span class="ms-2 small text-muted">Annual</span>
-        </div>
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+        <h1 class="display-5 fw-bold mb-3">Simple, All-Inclusive Pricing</h1>
+        <p class="lead text-muted mb-4">
+          $150 per user per month, all services included. No contract. Cancel anytime.
+        </p>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="row g-4">
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
       {% for tier in tiers %}
-      <div class="col-md-4">
-        <div class="p-4 bg-white border pricing-card {% if tier.highlight %}best{% endif %}" data-tier="{{ tier.id }}">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <div class="fw-semibold">{{ tier.name }}</div>
-            {% if tier.highlight %}<div class="badge bg-success text-white">Popular</div>{% endif %}
-          </div>
-
-          <div class="mb-3">
-            <div class="price" data-month="{{ tier.price_month }}" data-year="{{ tier.price_year }}">${{ tier.price_month }}</div>
-            <div class="period">per month</div>
-          </div>
-
-          <ul class="pricing-features text-muted mb-3">
-            {% for f in tier.features %}
-            <li>{{ f }}</li>
-            {% endfor %}
-          </ul>
-
-          {% if tier.included_services %}
-          <div class="mb-3">
-            <div class="small text-muted mb-2">Included services:</div>
-            <div class="service-toggles" data-services="{{ tier.services_param }}">
-              {% for s in tier.included_services %}
-              <div class="form-check form-check-inline">
-                <input class="form-check-input service-toggle" type="checkbox" id="svc_{{ tier.id }}_{{ forloop.counter }}" value="{{ s }}" checked>
-                <label class="form-check-label small" for="svc_{{ tier.id }}_{{ forloop.counter }}">{{ s }}</label>
-              </div>
-              {% endfor %}
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0 h-100">
+          <div class="card-body p-5 text-center">
+            <div class="mb-4">
+              <span class="display-4 fw-bold text-success">${{ tier.price_month }}</span>
+              <div class="text-muted">per user / month</div>
             </div>
-          </div>
-          {% endif %}
-
-          <div class="d-grid mt-4">
-            <a href="{% url 'contact' %}?plan={{ tier.id }}&services={{ tier.services_param }}" class="btn btn-outline-success request-quote-link" data-tier="{{ tier.id }}">Request quote</a>
+            <ul class="list-unstyled mb-4">
+              {% for f in tier.features %}
+              <li class="mb-2 d-flex align-items-start">
+                <i class="bi bi-check-circle-fill text-success me-2 flex-shrink-0"></i>
+                <span>{{ f }}</span>
+              </li>
+              {% endfor %}
+            </ul>
+            <a href="{% url 'contact' %}?plan={{ tier.id }}" class="btn btn-success btn-lg px-4">Request a Consultation</a>
           </div>
         </div>
       </div>
@@ -63,57 +43,107 @@
   </div>
 </section>
 
-{% block extra_scripts %}
-<script>
-  document.addEventListener('DOMContentLoaded', function(){
-    // Monthly/annual toggle
-    var toggle = document.getElementById('billingToggle');
-    var updatePrices = function(){
-      var annual = toggle.checked;
-      document.querySelectorAll('.price').forEach(function(el){
-        var m = parseInt(el.dataset.month,10);
-        var y = parseInt(el.dataset.year,10);
-        el.textContent = '$' + (annual ? y : m);
-        el.nextElementSibling.textContent = annual ? 'per year' : 'per month';
-      });
-    };
-    toggle.addEventListener('change', updatePrices);
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row text-center mb-5">
+      <div class="col-12">
+        <h2 class="h3 fw-bold">What’s Included</h2>
+        <p class="text-muted">Everything you need for reliable IT management</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-headset text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">Helpdesk</h3>
+          <p class="text-muted small">Remote and onsite support for all your IT needs.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-shield-lock-fill text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">Security Monitoring</h3>
+          <p class="text-muted small">Endpoint protection, incident response, and policy enforcement.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-gear-fill text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">Patch Management</h3>
+          <p class="text-muted small">Automated updates and monitoring.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-cloud-arrow-up text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">Backup & DR</h3>
+          <p class="text-muted small">Reliable backups, replication, and recovery planning.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-wifi text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">Network & Cloud</h3>
+          <p class="text-muted small">Infrastructure maintenance and cloud services.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="text-center p-4 border rounded-4 h-100 bg-white">
+          <div class="mb-3">
+            <i class="bi bi-people-fill text-success" style="font-size: 2rem;"></i>
+          </div>
+          <h3 class="h6 fw-bold">User Management</h3>
+          <p class="text-muted small">Onboarding, offboarding, and asset tracking.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    // Service toggling
-    var updateRequestQuoteLink = function(card) {
-      var tierId = card.dataset.tier;
-      var toggles = card.querySelectorAll('.service-toggle:checked');
-      var selectedServices = Array.from(toggles).map(function(t) {
-        // Extract service slug from label (e.g., "Helpdesk & Support" -> "helpdesk")
-        var text = t.parentElement.textContent.trim();
-        var slugMap = {
-          'Helpdesk & Support': 'helpdesk',
-          'RMM & Patching': 'rmm',
-          'Email & Collaboration': 'email',
-          'Backup & Disaster Recovery': 'backup',
-          'Managed Security': 'security',
-          'Networking & VoIP': 'networking',
-          'Cloud & Migration': 'cloud',
-          'VoIP & UC': 'voip'
-        };
-        return slugMap[text] || text.toLowerCase().replace(/\s+/g, '-');
-      }).join(',');
+<!--
+<section class="py-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="h3 fw-bold mb-3">Estimate Your Monthly Cost</h2>
+        <p class="text-muted mb-4">Adjust the number of users to see your estimated bill</p>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+              <div class="card-body p-4">
+                <label for="userCount" class="form-label fw-semibold">Number of Users</label>
+                <div class="input-group mb-3">
+                  <input type="number" id="userCount" class="form-control form-control-lg" min="1" value="5" aria-label="Number of users">
+                  <span class="input-group-text">users</span>
+                </div>
+                <div class="row text-center">
+                  <div class="col-6">
+                    <div class="text-muted small">Per User</div>
+                    <div class="fw-bold">$150</div>
+                  </div>
+                  <div class="col-6">
+                    <div class="text-muted small">Monthly Total</div>
+                    <div class="fw-bold fs-4 text-success" id="totalCost">$750</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+-->
 
-      var link = card.querySelector('.request-quote-link');
-      var params = new URLSearchParams();
-      params.set('plan', tierId);
-      params.set('services', selectedServices);
-      link.href = link.href.split('?')[0] + '?' + params.toString();
-    };
-
-    // Attach listeners to service toggles
-    document.querySelectorAll('.service-toggle').forEach(function(toggle){
-      toggle.addEventListener('change', function(){
-        var card = this.closest('.pricing-card');
-        updateRequestQuoteLink(card);
-      });
-    });
-  });
-</script>
-{% endblock %}
 {% endblock %}

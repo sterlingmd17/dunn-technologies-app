@@ -21,6 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import os
 
+
+def env_bool(name, default=False):
+    value = os.environ.get(name)
+    if value is None:
+        return default
+    return value.strip().lower() in ("1", "true", "yes", "on")
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
     "DJANGO_SECRET_KEY",
@@ -28,7 +35,7 @@ SECRET_KEY = os.environ.get(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "True").lower() in ("1", "true", "yes")
+DEBUG = env_bool("DJANGO_DEBUG", True)
 
 ALLOWED_HOSTS = []
 
@@ -126,13 +133,19 @@ STATICFILES_DIRS = [BASE_DIR / "website" / "static"]
 # Directory where `collectstatic` will collect static files for production
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
 EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.yourprovider.com")
 EMAIL_PORT = int(os.environ.get("EMAIL_PORT", 587))
-EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS", "True").lower() in ("1", "true", "yes")
+EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
+EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
 EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "alerts@dunntech.com")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "YOUR_APP_PASSWORD")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+EMAIL_TIMEOUT = int(os.environ.get("EMAIL_TIMEOUT", 15))
 DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "Dunn Technologies <alerts@dunntech.com>")
+CONTACT_EMAIL_SUBJECT_PREFIX = os.environ.get("CONTACT_EMAIL_SUBJECT_PREFIX", "[Website Lead]")
 
 # Contact recipient for the site contact form
-CONTACT_RECIPIENT_EMAIL = os.environ.get("CONTACT_RECIPIENT_EMAIL", "your_email@dunntech.com")
+CONTACT_RECIPIENT_EMAIL = os.environ.get(
+    "CONTACT_RECIPIENT_EMAIL",
+    os.environ.get("EMAIL_HOST_USER", "your_email@dunntech.com"),
+)
