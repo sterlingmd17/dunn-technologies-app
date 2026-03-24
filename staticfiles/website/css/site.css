@@ -8,6 +8,46 @@
   --dt-muted: #6B7280;
 }
 
+body {
+  color: var(--dt-text);
+  background-color: #ffffff;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+.lead {
+  line-height: 1.75;
+}
+
+main > section {
+  position: relative;
+}
+
+.navbar {
+  backdrop-filter: saturate(180%) blur(4px);
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--dt-text);
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: var(--dt-accent);
+}
+
+.btn {
+  border-radius: 0.65rem;
+  font-weight: 600;
+}
+
 .btn-success {
   background-color: var(--dt-accent);
   border-color: var(--dt-accent);
@@ -18,8 +58,52 @@
   border-color: var(--dt-green-dark);
 }
 
+.btn-outline-success {
+  border-color: var(--dt-accent);
+  color: var(--dt-accent);
+}
+
+.btn-outline-success:hover,
+.btn-outline-success:focus {
+  background-color: var(--dt-accent);
+  border-color: var(--dt-accent);
+}
+
 .hero {
   background: linear-gradient(180deg, rgba(31,122,58,0.08), rgba(31,122,58,0.02));
+}
+
+.card,
+.border.rounded-4,
+form.border.rounded-4 {
+  border-color: rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 6px 20px rgba(2, 6, 23, 0.04);
+}
+
+.card {
+  border-radius: 0.9rem;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.text-muted {
+  color: var(--dt-muted) !important;
+}
+
+.form-control {
+  border-radius: 0.65rem;
+  border-color: rgba(15, 23, 42, 0.15);
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+.form-control:focus {
+  border-color: var(--dt-accent);
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.18);
 }
 
 .icon-pill {
@@ -43,8 +127,16 @@
   max-width: 100%;
   border-radius: 0.75rem;
   object-fit: cover;
-  height: 220px;
+  height: min(60vh, 640px); /* much larger hero on wide screens */
 }
+
+@media (max-width: 1199px) {
+  .hero-image { height: min(45vh, 440px); }
+}
+
+@media (max-width: 991px) {
+  .hero-image { height: 260px; }
+} 
 
 .service-card {
   transition: transform .18s ease, box-shadow .18s ease;
@@ -71,11 +163,143 @@
 
 @media (max-width: 576px) {
   #service-map { height: 260px; }
-} 
+}
+
 /* Navbar logo sizing */
 .navbar-brand img {
-  height: 36px;
+  height: 150px; /* desktop */
+  max-height: 150px;
   width: auto;
   display: inline-block;
   object-fit: contain;
+}
+
+footer {
+  background: linear-gradient(180deg, #ffffff, var(--dt-light-bg));
+}
+
+.home-hero-title,
+.home-hero-lead,
+.home-hero-note {
+  max-width: 38rem;
+}
+
+.home-benefits .p-4 {
+  padding: 1.5rem !important;
+}
+
+.contact-intro {
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-form-wrap,
+.contact-sidebar {
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+}
+
+.contact-sidebar ul {
+  padding-left: 1.15rem;
+}
+
+.contact-sidebar li + li {
+  margin-top: 0.45rem;
+}
+
+.about-intro,
+.service-area-intro {
+  max-width: 44rem;
+}
+
+.about-approach ul {
+  padding-left: 1.15rem;
+}
+
+.about-approach li + li {
+  margin-top: 0.45rem;
+}
+
+.service-area-map {
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+@media (max-width: 991px) {
+  .home-hero {
+    padding-top: 2.75rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+
+  .home-hero-title {
+    font-size: clamp(1.85rem, 5vw, 2.4rem);
+    margin-bottom: 0.9rem;
+  }
+
+  .home-hero-lead {
+    font-size: 1.05rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand img { height: 96px; max-height: 96px; }
+
+  .home-hero {
+    padding-top: 2.1rem !important;
+    padding-bottom: 2.1rem !important;
+  }
+
+  .home-hero .container.py-4 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .home-hero-title {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .home-hero-lead {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .home-hero-actions {
+    flex-direction: column;
+  }
+
+  .home-hero-actions .btn {
+    width: 100%;
+  }
+
+  .home-hero-note {
+    margin-top: 0.85rem !important;
+  }
+
+  .home-benefits {
+    padding-top: 2.3rem !important;
+    padding-bottom: 2.3rem !important;
+  }
+
+  .home-benefits .mb-4 {
+    margin-bottom: 1rem !important;
+  }
+
+  .contact-section {
+    padding-top: 2.1rem !important;
+    padding-bottom: 2.1rem !important;
+  }
+
+  .contact-form-wrap,
+  .contact-sidebar {
+    padding: 1.25rem !important;
+  }
+
+  .about-hero,
+  .service-area-hero {
+    padding-top: 2.1rem !important;
+    padding-bottom: 2.1rem !important;
+  }
 }

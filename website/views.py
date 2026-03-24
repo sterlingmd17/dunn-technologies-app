@@ -39,26 +39,7 @@ def about(request):
 
 
 def pricing(request):
-    # per-user pricing: all services included, cancel anytime
-    tiers = [
-        {
-            "id": "per_user",
-            "price_month": 150,
-            "features": [
-                "All services included",
-                "No contract – cancel anytime",
-                "24/7 helpdesk (remote & onsite)",
-                "Security monitoring & incident response",
-                "Automated patching & configuration control",
-                "Backup, replication & DR planning",
-                "Network, cloud & infrastructure maintenance",
-                "User onboarding/offboarding and asset tracking",
-                "Cost-conscious open-source architecture",
-            ],
-            "highlight": True,
-        },
-    ]
-    return render(request, "website/pricing.html", {"tiers": tiers})
+    return render(request, "website/pricing.html")
 
 
 def contact(request):
